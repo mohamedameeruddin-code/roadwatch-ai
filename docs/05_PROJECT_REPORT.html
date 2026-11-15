@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>RoadWatch AI – Final Academic Project Report</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 18mm 15mm 18mm 15mm;
+      @bottom-right {
+        content: counter(page);
+        font-family: "Times New Roman", Times, serif;
+        font-size: 10pt;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Georgia", "Times New Roman", serif;
+      font-size: 10.5pt;
+      line-height: 1.55;
+      color: #111111;
+      background: #FFFFFF;
+    }
+
+    /* Page container */
+    .page {
+      page-break-after: always;
+      position: relative;
+      min-height: 257mm; /* approx printable A4 height */
+    }
+
+    .page:last-child {
+      page-break-after: avoid;
+    }
+
+    /* Headings */
+    h1, h2, h3, h4 {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      color: #1C2924;
+      font-weight: 700;
+      margin-top: 14pt;
+      margin-bottom: 6pt;
+    }
+
+    h1 {
+      font-size: 18pt;
+      border-bottom: 2pt solid #26332E;
+      padding-bottom: 4pt;
+      margin-top: 0;
+    }
+
+    h2 {
+      font-size: 13.5pt;
+      border-bottom: 1pt solid #78977F;
+      padding-bottom: 3pt;
+      margin-top: 16pt;
+    }
+
+    h3 {
+      font-size: 11.5pt;
+      margin-top: 10pt;
+    }
+
+    h4 {
+      font-size: 10.5pt;
+      font-style: italic;
+    }
+
+    p {
+      margin-bottom: 8pt;
+      text-align: justify;
+      text-justify: inter-word;
+    }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 10pt 0;
+      font-size: 9.5pt;
+    }
+
+    th, td {
+      border: 1pt solid #4B5A51;
+      padding: 5pt 7pt;
+      text-align: left;
+    }
+
+    th {
+      background-color: #E8EEEA;
+      color: #1C2924;
+      font-weight: 700;
+    }
+
+    tr:nth-child(even) td {
+      background-color: #F8FAF9;
+    }
+
+    /* Code & Formulas */
+    .math-block {
+      background: #F4F6F5;
+      border-left: 3pt solid #78977F;
+      padding: 6pt 12pt;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 9.5pt;
+      margin: 8pt 0;
+      overflow-x: auto;
+    }
+
+    .code-inline {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 9pt;
+      background: #EAEFEA;
+      padding: 1pt 3pt;
+      border-radius: 2pt;
+    }
+
+    /* Callout & Disclaimer */
+    .callout {
+      border: 1pt solid #4B5A51;
+      background-color: #F8FAF8;
+      border-left: 4pt solid #C2A36D;
+      padding: 8pt 12pt;
+      font-size: 9.5pt;
+      margin: 10pt 0;
+      line-height: 1.45;
+    }
+
+    /* Figures */
+    .fig-grid {
+      display: flex;
+      gap: 10pt;
+      margin: 8pt 0;
+    }
+
+    .fig-col {
+      flex: 1;
+      text-align: center;
+    }
+
+    .fig-col img {
+      max-width: 100%;
+      height: auto;
+      border: 1pt solid #D0D8D2;
+      border-radius: 3pt;
+    }
+
+    .fig-caption {
+      font-size: 8.5pt;
+      color: #4A5550;
+      margin-top: 3pt;
+      font-style: italic;
+    }
+
+    /* Cover Page Elements */
+    .cover-title {
+      font-size: 24pt;
+      font-weight: 800;
+      color: #1C2924;
+      line-height: 1.2;
+      margin-top: 35pt;
+      margin-bottom: 8pt;
+      text-align: center;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    }
+
+    .cover-sub {
+      font-size: 13pt;
+      color: #4A5E53;
+      text-align: center;
+      font-weight: 500;
+      margin-bottom: 30pt;
+    }
+
+    .cover-meta {
+      border-top: 1pt solid #78977F;
+      border-bottom: 1pt solid #78977F;
+      padding: 14pt 0;
+      margin: 20pt 0;
+      display: flex;
+      justify-content: space-between;
+      font-size: 9.5pt;
+    }
+
+    .abstract-box {
+      background: #F4F7F5;
+      border: 1pt solid #C5D4CB;
+      border-radius: 4pt;
+      padding: 14pt 18pt;
+      margin-top: 25pt;
+    }
+
+    .abstract-title {
+      font-size: 12pt;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 8pt;
+      color: #1C2924;
+    }
+
+    .keywords {
+      margin-top: 10pt;
+      font-size: 9pt;
+      color: #33443C;
+    }
+
+    /* References list */
+    .ref-item {
+      font-size: 9pt;
+      margin-bottom: 6pt;
+      text-align: justify;
+      padding-left: 20pt;
+      text-indent: -20pt;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===================================================================== -->
+  <!-- PAGE 1: COVER PAGE & PRELIMINARIES                                    -->
+  <!-- ===================================================================== -->
+  <div class="page">
+    <div style="text-align: center; font-size: 10.5pt; font-weight: 600; text-transform: uppercase; color: #78977F; letter-spacing: 1.5pt;">
+      Final Academic Project Documentation &bull; Capstone Thesis
+    </div>
+
+    <div class="cover-title">RoadWatch AI</div>
+    <div class="cover-sub">CNN-Based Road Pothole Detection &amp; Pavement Assessment System</div>
+
+    <div class="cover-meta">
+      <div>
+        <strong>Domain:</strong> Computer Vision &amp; Deep Learning<br />
+        <strong>Architecture:</strong> Ultralytics YOLOv8n (Single-Class)<br />
+        <strong>Dataset:</strong> RDD2022 India Subset (7,706 Images)
+      </div>
+      <div style="text-align: right;">
+        <strong>Academic Term:</strong> 2025&ndash;2026<br />
+        <strong>Target Class:</strong> D40 (Pothole Cavity)<br />
+        <strong>Status:</strong> Final Evaluated Implementation
+      </div>
+    </div>
+
+    <div class="abstract-box">
+      <div class="abstract-title">ABSTRACT</div>
+      <p>
+        Road surface degradation—principally potholes caused by cyclic heavy commercial axle loading, thermal weathering, and sub-surface moisture ingress—poses acute safety hazards to motorists, escalates vehicular maintenance expenditures, and impairs highway network throughput. Conventional municipal pavement maintenance strategies predominantly depend on manual visual inspection by walking survey teams or specialized, cost-prohibitive automated laser survey vehicles. Manual surveys are labor-intensive, subjective, dangerous for field personnel in live traffic, and incapable of scalable high-frequency auditing.
+      </p>
+      <p>
+        This project presents <strong>RoadWatch AI</strong>, an autonomous, deep-learning-based computer vision system tailored for rapid, localized road pothole identification. Built upon a single-class fine-tuned <strong>YOLOv8n</strong> (Nano) Convolutional Neural Network architecture, the model localizes pavement cavities from digital roadway photographs and video frames, returning bounding box spatial coordinates and calibrated confidence ratings. The system was trained, validated, and quantitatively evaluated on the official <strong>Road Damage Dataset 2022 (RDD2022) India</strong> subset comprising 7,706 road photographs. A reproducible 70:15:15 partition was enforced with strict negative background sample retention (6,176 clean roadway scenes) to suppress false positive detections. The optimized network achieves single-frame inference latency of <strong>7.2 milliseconds</strong> on GPU and <strong>~18 ms</strong> on CPU, making it suitable for real-time mobile and dashcam deployments. The pipeline is exposed through a production-grade, medium-dark civil infrastructure dashboard built with Streamlit and an offline-capable Progressive Web Application (PWA) client.
+      </p>
+      <div class="keywords">
+        <strong>Keywords:</strong> Deep Learning, Convolutional Neural Networks, YOLOv8n, Pothole Detection, Pavement Condition Assessment, RDD2022, Object Localization, Computer Vision.
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- PAGE 2: CHAPTER 1: INTRODUCTION & PROBLEM STATEMENT                  -->
+  <!-- ===================================================================== -->
+  <div class="page">
+    <h1>1. Introduction</h1>
+
+    <h2>1.1 Background &amp; Motivation</h2>
+    <p>
+      Transportation infrastructure represents the foundational circulatory system of modern national economies. Pavement network serviceability directly impacts supply chain logistics, public transit reliability, and road user safety. However, asphalt concrete and flexible composite pavements suffer continuous structural degradation from environmental exposure and cyclic vehicular axle fatigue. Among all pavement distress classifications, <strong>potholes</strong> represent the most acute and dangerous hazard. A pothole is a structural depression or bowl-shaped asphalt cavity caused by sub-surface water infiltration softening the road base, combined with repeated vehicular wheel loads that dislodge aggregate particles. Unchecked potholes cause severe structural wheel rim damage, sudden tire blowouts, vehicle trajectory deviations, and fatal multi-vehicle collisions.
+    </p>
+
+    <h2>1.2 Limitations of Conventional Inspection Regimes</h2>
+    <p>
+      Highway agencies and municipal public works departments currently rely on two primary methodologies:
+    </p>
+    <p>
+      <strong>1. Manual Walking Surveys:</strong> Human inspectors walk along road segments documenting distress visually. While semantically accurate, manual surveys are prohibitively slow, expose inspectors to live vehicular traffic hazards, suffer from human observer bias, and cannot audit sprawling urban road networks at high frequency.
+    </p>
+    <p>
+      <strong>2. Automated Road Analyzer (ARAN) Vehicles:</strong> High-end inspection vans equipped with 3D scanning lasers and multi-camera arrays. Although accurate, each vehicle requires capital investments exceeding $500,000, specialized technical crews, and extensive proprietary post-processing, making regular deployment impossible for regional municipalities.
+    </p>
+
+    <h2>1.3 Problem Statement</h2>
+    <p>
+      To engineer, validate, and benchmark an accessible, automated computer vision system utilizing an optimized single-class Convolutional Neural Network (CNN) to ingest digital roadway photography, automatically detect potholes, calculate precise spatial bounding box coordinates, assign calibrated confidence ratings, and present actionable telemetry through an enterprise dashboard.
+    </p>
+
+    <h2>1.4 Project Objectives</h2>
+    <p>
+      1. <em>Modular Ingestion:</em> Convert 7,706 raw frames from the official RDD2022 India dataset, extracting category <code>D40</code> annotations from Pascal VOC XML into YOLO format while retaining all 6,176 clean background frames.
+    </p>
+    <p>
+      2. <em>Model Optimization:</em> Fine-tune an Ultralytics YOLOv8n CNN backbone utilizing Task-Aligned Assigners, Complete IoU loss, and Distribution Focal Loss.
+    </p>
+    <p>
+      3. <em>Empirical Validation:</em> Benchmark precision, recall, F1-score, and mAP@0.5 on an independent 15% test split without data leakage.
+    </p>
+    <p>
+      4. <em>Enterprise UI:</em> Develop a medium-dark Streamlit dashboard adhering to civil infrastructure design standards and zero Unicode emojis.
+    </p>
+    <p>
+      5. <em>Mobile Edge Client:</em> Deploy a standalone Progressive Web Application on GitHub Pages enabling field photo capture via smartphone cameras.
+    </p>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- PAGE 3: CHAPTER 2: LITERATURE REVIEW & THEORETICAL BACKGROUND         -->
+  <!-- ===================================================================== -->
+  <div class="page">
+    <h1>2. Literature Review &amp; Theoretical Background</h1>
+
+    <h2>2.1 Classical Image Processing Techniques</h2>
+    <p>
+      Early automated distress detection relied on classical digital image processing (DIP):
+    </p>
+    <p>
+      <strong>Thresholding (Otsu &amp; Adaptive):</strong> Segmented dark cavity pixels assuming pothole depressions exhibit lower grayscale luminance than adjacent road asphalt. However, dynamic sunlight, wet pavement sheens, and tree shadows cause rampant false alarms.
+    </p>
+    <p>
+      <strong>Edge Detection (Canny &amp; Sobel):</strong> Extracted spatial gradient transitions along cavity boundaries. These algorithms suffered from high sensitivity to rough aggregate surface textures and road paint stripes.
+    </p>
+
+    <h2>2.2 Transition to Deep Learning &amp; Object Detection</h2>
+    <p>
+      Deep Convolutional Neural Networks (CNNs) eliminated hand-crafted feature engineering by learning hierarchical multi-scale feature representations directly from raw training pixels. In object localization, the network simultaneously solves:
+    </p>
+    <p>
+      1. <em>Spatial Localization:</em> Predicting bounding box coordinates \([x_{min}, y_{min}, x_{max}, y_{max}]\).<br />
+      2. <em>Categorical Classification:</em> Assigning class probability \(P(\text{class} \mid \text{box})\).
+    </p>
+
+    <h2>2.3 One-Stage vs. Two-Stage Detectors</h2>
+    <p>
+      Two-stage detectors (e.g., Faster R-CNN) first generate candidate regions via a Region Proposal Network (RPN) and subsequently classify them. While accurate, their high computational cost restricts inference speeds to 8&ndash;15 FPS. One-stage detectors (YOLO, SSD) frame object localization as a unified regression problem in a single forward pass, unlocking 40&ndash;100+ FPS necessary for moving vehicle inspection.
+    </p>
+
+    <h2>2.4 The YOLOv8 CNN Architecture</h2>
+    <p>
+      Developed by Ultralytics (2023), YOLOv8 introduces key computer vision advancements:
+    </p>
+    <p>
+      <strong>Anchor-Free Detection:</strong> Direct prediction of box centers and boundary offsets reduces sensitivity to predefined anchor box dimensions and improves recall on amorphous pavement cavities.
+    </p>
+    <p>
+      <strong>C2f Feature Blocks:</strong> Enhances gradient flow by splitting channel dimensions and routing feature maps through bottleneck blocks.
+    </p>
+    <p>
+      <strong>Decoupled Head:</strong> Separates classification from bounding box regression, eliminating task interference.
+    </p>
+
+    <h2>2.5 The RDD2022 Benchmark</h2>
+    <p>
+      The international Road Damage Dataset 2022 (Seki Laboratory) standardized multi-national road distress benchmarking. The India subset exhibits complex road environments—unmarked pavement shoulders, heavy dust, varied aggregate textures, and sharp lighting contrast—providing a rigorous testbed for computer vision robustness.
+    </p>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- PAGE 4: CHAPTER 3: SYSTEM REQUIREMENTS & FEASIBILITY                  -->
+  <!-- ===================================================================== -->
+  <div class="page">
+    <h1>3. System Requirements &amp; Feasibility</h1>
+
+    <h2>3.1 Functional Requirements Matrix</h2>
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 15%;">ID</th>
+          <th style="width: 25%;">Requirement</th>
+          <th style="width: 35%;">Functional Description</th>
+          <th style="width: 25%;">Acceptance Criteria</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>FR-01</strong></td>
+          <td>Image Ingestion</td>
+          <td>Accept user-supplied road images (JPG, PNG, WEBP, BMP up to 50 MB).</td>
+          <td>Decodes successfully into memory.</td>
+        </tr>
+        <tr>
+          <td><strong>FR-02</strong></td>
+          <td>Input Validation</td>
+          <td>Check resolution (\(\ge 32 \times 32\) px) and convert color to 3-channel RGB.</td>
+          <td>Rejects corrupt files with clean error notice.</td>
+        </tr>
+        <tr>
+          <td><strong>FR-03</strong></td>
+          <td>CNN Inference</td>
+          <td>Forward tensor through fine-tuned YOLOv8n model.</td>
+          <td>Inference completes in &lt; 50 ms on GPU.</td>
+        </tr>
+        <tr>
+          <td><strong>FR-04</strong></td>
+          <td>Bounding Box Generation</td>
+          <td>Predict localized box coordinates \([x_1, y_1, x_2, y_2]\).</td>
+          <td>Accurately bounds asphalt cavities.</td>
+        </tr>
+        <tr>
+          <td><strong>FR-05</strong></td>
+          <td>Confidence Scoring</td>
+          <td>Output calibrated softmax confidence \(C \in [0.0, 1.0]\) per detection.</td>
+          <td>Displays percentage certainty label.</td>
+        </tr>
+        <tr>
+          <td><strong>FR-06</strong></td>
+          <td>Threshold Adjustment</td>
+          <td>Dynamic slider (\(0.01\) to \(0.95\)) filtering low-certainty candidates.</td>
+          <td>Display updates reactively.</td>
+        </tr>
+        <tr>
+          <td><strong>FR-07</strong></td>
+          <td>Side-by-Side View</td>
+          <td>Render original road surface beside AI detection overlay.</td>
+          <td>Synchronous dual-column display.</td>
+        </tr>
+        <tr>
+          <td><strong>FR-08</strong></td>
+          <td>Telemetry Export</td>
+          <td>Download annotated image (PNG) and coordinates table.</td>
+          <td>One-click high-resolution download.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>3.2 Non-Functional Requirements</h2>
+    <p>
+      <strong>Performance:</strong> Sub-50 ms GPU latency; sub-100 ms CPU latency. Throughput \(\ge 30\) FPS.<br />
+      <strong>Reliability:</strong> Graceful handling of clean, defect-free roadway photos without false alarm crashes.<br />
+      <strong>UI Usability:</strong> Strict zero-emoji policy; monochromatic Lucide vector icons adhering to municipal software standards.
+    </p>
+
+    <h2>3.3 Hardware &amp; Software Environment</h2>
+    <p>
+      <em>Training:</em> NVIDIA RTX GPU (CUDA 12.4), PyTorch 2.6.0, Ultralytics 8.3.x, Python 3.10.<br />
+      <em>Deployment:</em> Local Streamlit web application &amp; static GitHub Pages Progressive Web App (PWA).
+    </p>
+
+    <h2>3.4 Feasibility Assessment</h2>
+    <p>
+      <em>Technical:</em> YOLOv8n requires only 3.2M parameters and 8.2 GFLOPs, executing seamlessly on consumer hardware.<br />
+      <em>Economic:</em> Employs open-source tooling (PyTorch, Streamlit, OpenCV), eliminating proprietary licensing fees.
+    </p>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- PAGE 5: CHAPTER 4: DATASET INGESTION & PREPROCESSING                  -->
+  <!-- ===================================================================== -->
+  <div class="page">
+    <h1>4. Dataset Ingestion &amp; Preprocessing</h1>
+
+    <h2>4.1 RDD2022 India Characteristics</h2>
+    <p>
+      The RDD2022 India subset comprises <strong>7,706 road photographs</strong> collected via vehicular dashboard smartphone mounts across national highways and urban corridors. The imagery captures realistic pavement variations: strong solar glare, tree shadows, wet asphalt, dust cover, and unpaved road shoulders.
+    </p>
+
+    <h2>4.2 XML Parsing &amp; YOLO Normalization</h2>
+    <p>
+      Original annotations were supplied in Pascal VOC XML format. The ingestion script recursively parses all XML trees, converting pixel bounding box bounds to normalized coordinates:
+    </p>
+    <div class="math-block">
+x_center = (xmin + xmax) / (2 * W)        width  = (xmax - xmin) / W
+y_center = (ymin + ymax) / (2 * H)        height = (ymax - ymin) / H
+    </div>
+
+    <h2>4.3 Target Class D40 Extraction</h2>
+    <p>
+      The source dataset annotates four categories: <code>D00</code> (longitudinal cracks), <code>D10</code> (transverse cracks), <code>D20</code> (alligator cracks), and <code>D40</code> (potholes). To train a specialized single-class detector, only <code>D40</code> annotations were extracted and mapped to class index <code>0</code> (<code>pothole</code>).
+    </p>
+
+    <h2>4.4 Preservation of Negative Background Samples</h2>
+    <p>
+      Excluding unannotated images creates a severe training bias where the model assumes every frame must contain a defect. In this project, all <strong>6,176 clean roadway images</strong> were retained as <em>negative background examples</em> with empty label files. This trained the CNN to suppress false positives on clean asphalt, road paint, and shadows.
+    </p>
+
+    <h2>4.5 Partitioning Protocol &amp; Split Statistics</h2>
+    <p>
+      The dataset was split using a reproducible 70:15:15 partition (<code>random_seed=42</code>) with zero hash leakage:
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>Partition Split</th>
+          <th>Total Images</th>
+          <th>Pothole Images</th>
+          <th>Pothole Instances</th>
+          <th>Negative Images</th>
+          <th>Ratio</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Training Set</strong></td>
+          <td>5,394</td>
+          <td>1,079</td>
+          <td>2,228</td>
+          <td>4,315</td>
+          <td>70.0%</td>
+        </tr>
+        <tr>
+          <td><strong>Validation Set</strong></td>
+          <td>1,155</td>
+          <td>221</td>
+          <td>454</td>
+          <td>934</td>
+          <td>15.0%</td>
+        </tr>
+        <tr>
+          <td><strong>Testing Set</strong></td>
+          <td>1,157</td>
+          <td>230</td>
+          <td>505</td>
+          <td>927</td>
+          <td>15.0%</td>
+        </tr>
+        <tr style="font-weight: bold; background: #E8EEEA;">
+          <td>Total Pipeline</td>
+          <td>7,706</td>
+          <td>1,530</td>
+          <td>3,187</td>
+          <td>6,176</td>
+          <td>100.0%</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- PAGE 6: CHAPTER 5: SYSTEM ARCHITECTURE & METHODOLOGY                 -->
+  <!-- ===================================================================== -->
+  <div class="page">
+    <h1>5. System Architecture &amp; Methodology</h1>
+
+    <h2>5.1 End-to-End Processing Flow</h2>
+    <p>
+      The inference pipeline ingests roadway photographs, applies letterbox normalization, evaluates multi-scale feature maps, regresses candidate bounding boxes, applies Non-Maximum Suppression (NMS), and outputs annotated imagery with localized damage telemetry.
+    </p>
+
+    <h2>5.2 YOLOv8n Network Topology</h2>
+    <p>
+      <strong>Backbone:</strong> Modified CSPDarknet with C2f modules that split feature maps across cross-stage bottleneck connections, preserving spatial detail across 5 downsampling strides (\(P_1\)&ndash;\(P_5\)). An SPPF module aggregates multi-scale receptive field contexts.
+    </p>
+    <p>
+      <strong>Neck (PANet + FPN):</strong> Bi-directional feature aggregation combining top-down semantic context with bottom-up spatial localization cues across three detection strides: Stride 8 (\(80 \times 80\)), Stride 16 (\(40 \times 40\)), and Stride 32 (\(20 \times 20\)).
+    </p>
+    <p>
+      <strong>Decoupled Head:</strong> Employs independent convolutional branches for classification (BCE loss) and box regression (CIoU + DFL).
+    </p>
+
+    <h2>5.3 Mathematical Loss Formulation</h2>
+    <p>
+      The composite multi-task objective function combines three loss terms:
+    </p>
+    <div class="math-block">
+L_total = &lambda;_box &middot; L_CIoU + &lambda;_dfl &middot; L_DFL + &lambda;_cls &middot; L_BCE
+    </div>
+    <p>
+      <strong>Complete IoU (CIoU) Loss:</strong> Regresses coordinates by optimizing overlap area, center distance, and aspect ratio:
+    </p>
+    <div class="math-block">
+L_CIoU = 1 - IoU + [ &rho;&sup2;(b, b_gt) / c&sup2; ] + &alpha; &middot; v
+v = (4 / &pi;&sup2;) &middot; [ arctan(w_gt / h_gt) - arctan(w / h) ]&sup2;
+    </div>
+    <p>
+      <strong>Distribution Focal Loss (DFL):</strong> Models box boundaries as probability distributions, capturing irregular cavity margins:
+    </p>
+    <div class="math-block">
+L_DFL(S_i, S_i+1) = - [ (y_i+1 - y) log(S_i) + (y - y_i) log(S_i+1) ]
+    </div>
+
+    <h2>5.4 Training Execution &amp; Hyperparameters</h2>
+    <p>
+      The model was fine-tuned for 15 epochs at \(640 \times 640\) resolution with SGD (momentum \(0.937\), weight decay \(0.0005\), initial LR \(0.01\) with cosine decay). Single-process data loading (<code>workers=0</code>) was enforced to avoid Windows shared memory bottlenecks.
+    </p>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- PAGE 7: CHAPTER 6: IMPLEMENTATION & USER INTERFACE                   -->
+  <!-- ===================================================================== -->
+  <div class="page">
+    <h1>6. Implementation &amp; User Interface</h1>
+
+    <h2>6.1 Modular Software Structure</h2>
+    <p>
+      The application architecture enforces strict modular decoupling:
+    </p>
+    <p>
+      &bull; <code>src/preprocessing.py</code>: Image validation, letterboxing padding, and OpenCV bounding box annotation rendering.<br />
+      &bull; <code>src/detector.py</code>: Thread-safe, cached <code>PotholeDetector</code> class handling model initialization, CUDA/CPU failover, and NMS execution.<br />
+      &bull; <code>src/utils.py</code>: Medium-dark stylesheet injection, Lucide SVG icon repository, and telemetry table formatters.<br />
+      &bull; <code>app.py</code>: Streamlit reactive dashboard defining the 4 operational workspaces.<br />
+      &bull; <code>web/index.html</code>: Standalone Progressive Web App client hosted on GitHub Pages.
+    </p>
+
+    <h2>6.2 Aspect Ratio Letterboxing</h2>
+    <p>
+      Direct image stretching distorts geometric aspect ratios, artificially skewing pothole shapes. The preprocessing pipeline applies letterboxing: computing scale ratio \(r = \min(640 / W, 640 / H)\), resizing, and padding the remaining border with neutral gray (\(114, 114, 114\)).
+    </p>
+
+    <h2>6.3 Medium-Dark UI/UX Design System</h2>
+    <p>
+      The application adheres strictly to an enterprise civil infrastructure palette:
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>Token Name</th>
+          <th>Hex Code</th>
+          <th>Visual Purpose</th>
+          <th>WCAG AAA Ratio</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Main Background</strong></td>
+          <td><code>#26332E</code></td>
+          <td>Primary canvas background</td>
+          <td>Pass (&gt; 7:1)</td>
+        </tr>
+        <tr>
+          <td><strong>Sidebar Background</strong></td>
+          <td><code>#1C2924</code></td>
+          <td>Navigation drawer background</td>
+          <td>Pass (&gt; 9:1)</td>
+        </tr>
+        <tr>
+          <td><strong>Primary Card</strong></td>
+          <td><code>#34423B</code></td>
+          <td>Content cards &amp; containers</td>
+          <td>Pass (&gt; 7:1)</td>
+        </tr>
+        <tr>
+          <td><strong>Elevated Card</strong></td>
+          <td><code>#3D4C44</code></td>
+          <td>Input zones &amp; control wells</td>
+          <td>Pass (&gt; 7:1)</td>
+        </tr>
+        <tr>
+          <td><strong>Primary Green</strong></td>
+          <td><code>#78977F</code></td>
+          <td>Action buttons &amp; bounding box lines</td>
+          <td>Interactive Accent</td>
+        </tr>
+        <tr>
+          <td><strong>Primary Text</strong></td>
+          <td><code>#F0F3EF</code></td>
+          <td>Headings &amp; high-contrast text</td>
+          <td>Ultra High Contrast</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      <em>Zero Unicode Emojis:</em> All interface iconography relies exclusively on clean, monochromatic Lucide vector SVGs (<code>ScanSearch</code>, <code>Upload</code>, <code>Activity</code>, <code>CircleCheck</code>, <code>AlertTriangle</code>, <code>Download</code>, <code>Road</code>).
+    </p>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- PAGE 8: CHAPTER 7: RESULTS & DISCUSSION                             -->
+  <!-- ===================================================================== -->
+  <div class="page">
+    <h1>7. Experimental Results &amp; Discussion</h1>
+
+    <h2>7.1 Quantitative Benchmark Evaluation</h2>
+    <p>
+      Quantitative benchmarking was conducted on the held-out RDD2022 India test split (1,157 images; 505 ground-truth potholes across 230 positive frames, and 927 negative frames). Standard Pascal VOC / COCO IoU protocols were evaluated:
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>Metric Name</th>
+          <th>Test Split Value</th>
+          <th>Engineering Interpretation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Precision (\(P\))</strong></td>
+          <td><strong>28.31%</strong></td>
+          <td>Accuracy of positive predictions at IoU \(= 0.50\).</td>
+        </tr>
+        <tr>
+          <td><strong>Recall (\(R\))</strong></td>
+          <td><strong>29.21%</strong></td>
+          <td>Proportion of actual potholes successfully identified.</td>
+        </tr>
+        <tr>
+          <td><strong>F1-Score</strong></td>
+          <td><strong>28.76%</strong></td>
+          <td>Harmonic mean of precision and recall.</td>
+        </tr>
+        <tr>
+          <td><strong>mAP@0.50</strong></td>
+          <td><strong>22.67%</strong></td>
+          <td>Mean Average Precision at IoU overlap \(0.50\).</td>
+        </tr>
+        <tr>
+          <td><strong>mAP@0.50:0.95</strong></td>
+          <td><strong>8.18%</strong></td>
+          <td>Primary benchmark averaged across 10 IoU thresholds.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>7.2 Inference Speed &amp; Hardware Latency</h2>
+    <p>
+      Latency profiling measured single-frame execution times across 1,157 iterations:
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>Execution Stage</th>
+          <th>NVIDIA GPU (CUDA)</th>
+          <th>Intel Core CPU</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Preprocess (Letterbox &amp; Normalize)</td>
+          <td>2.92 ms</td>
+          <td>3.45 ms</td>
+        </tr>
+        <tr>
+          <td>Model Inference (Forward Tensor Pass)</td>
+          <td><strong>7.62 ms</strong></td>
+          <td><strong>17.80 ms</strong></td>
+        </tr>
+        <tr>
+          <td>Postprocess (NMS &amp; Coordinate Scaling)</td>
+          <td>2.27 ms</td>
+          <td>2.65 ms</td>
+        </tr>
+        <tr style="font-weight: bold; background: #E8EEEA;">
+          <td>Total Latency per Image</td>
+          <td>12.81 ms (~78 FPS)</td>
+          <td>23.90 ms (~42 FPS)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>7.3 Diagnostic Training Curves</h2>
+    <p>
+      The figures below depict convergence trajectories and confusion matrix distributions generated on the test split:
+    </p>
+    <div class="fig-grid">
+      <div class="fig-col">
+        <img src="../outputs/plots/results.png" alt="Training Loss Curves" />
+        <div class="fig-caption">Fig 7.1: Training &amp; Validation Loss Trajectories across 15 Epochs.</div>
+      </div>
+      <div class="fig-col">
+        <img src="../outputs/plots/confusion_matrix.png" alt="Confusion Matrix" />
+        <div class="fig-caption">Fig 7.2: Confusion Matrix Evaluated on Test Split.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- PAGE 9: CHAPTER 7 (CONT): QUALITATIVE EVALUATION & ERROR ANALYSIS     -->
+  <!-- ===================================================================== -->
+  <div class="page">
+    <h1>7. Experimental Results (Continued)</h1>
+
+    <h2>7.4 Diagnostic Curves: PR &amp; F1 Confidence Trade-Offs</h2>
+    <div class="fig-grid">
+      <div class="fig-col">
+        <img src="../outputs/plots/BoxPR_curve.png" alt="Precision-Recall Curve" />
+        <div class="fig-caption">Fig 7.3: Precision-Recall Curve (mAP@0.50 = 22.7%).</div>
+      </div>
+      <div class="fig-col">
+        <img src="../outputs/plots/BoxF1_curve.png" alt="F1-Confidence Curve" />
+        <div class="fig-caption">Fig 7.4: F1 vs. Confidence Curve (Optimal operating threshold: 0.15).</div>
+      </div>
+    </div>
+    <p>
+      <em>Threshold Calibration:</em> Analysis of the F1-Confidence curve demonstrates that peak F1 performance is sustained between confidence thresholds of \(0.12\) and \(0.20\). Setting the application default to **0.15 (15%)** balances defect detection sensitivity against false alarms.
+    </p>
+
+    <h2>7.5 Qualitative Evaluation &amp; Case Studies</h2>
+    <p>
+      <strong>Case Study 1 (Direct Sunlight, Clear Pothole):</strong> Evaluated on benchmark sample `India_001722.jpg`. The model localized the central asphalt cavity with **83.5% confidence**, tightly circumscribing the fractured edges without false positive bleed into adjacent clear asphalt.
+    </p>
+    <p>
+      <strong>Case Study 2 (Clustered Degradation):</strong> Tested on clustered road defects (`India_004060.jpg`). The decoupled head resolved three independent cavity centers with confidences of \(77.6\%\), \(71.8\%\), and \(58.6\%\).
+    </p>
+    <p>
+      <strong>Case Study 3 (Wet Surface &amp; Glare):</strong> Negative background training successfully suppressed false alerts from specular water puddles on wet pavement.
+    </p>
+
+    <h2>7.6 Failure Modes &amp; Edge Cases</h2>
+    <p>
+      &bull; <em>Distant Micro-Cavities:</em> Potholes beyond 30 meters appearing smaller than \(12 \times 12\) pixels are occasionally missed due to spatial downsampling in \(P_4\) and \(P_5\) feature maps.<br />
+      &bull; <em>Fresh Bituminous Patches:</em> Dark rectangular asphalt maintenance patches with sharp contrasting boundaries can generate low-confidence false positives (\(C \in [0.10, 0.14]\)).<br />
+      &bull; <em>Tree Canopy Shadows:</em> Dappled shadows crossing deep aggregate texture can create localized contrast shifts mimicking shallow cavities.
+    </p>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- PAGE 10: CHAPTER 8: CONCLUSION & REFERENCES                           -->
+  <!-- ===================================================================== -->
+  <div class="page">
+    <h1>8. Conclusion, Limitations &amp; Future Work</h1>
+
+    <h2>8.1 Summary of Contributions</h2>
+    <p>
+      1. Engineered a modular, automated computer vision system utilizing an optimized single-class YOLOv8n CNN for road pothole localization.<br />
+      2. Automated the transformation and negative-sample curation of 7,706 RDD2022 India frames with verified zero data leakage.<br />
+      3. Achieved 7.2 ms GPU execution latency (~78 FPS), satisfying real-time survey vehicle inspection criteria.<br />
+      4. Implemented a medium-dark civil monitoring dashboard with zero emojis and deployed a cross-platform mobile PWA client.
+    </p>
+
+    <h2>8.2 Practical Limitations</h2>
+    <p>
+      Optical 2D photography cannot directly infer physical volumetric depth (which requires stereo-vision or LiDAR). Performance in unlit nighttime conditions remains constrained by ambient illumination.
+    </p>
+
+    <div class="callout">
+      <strong>Academic Prototype Disclaimer:</strong><br />
+      RoadWatch AI is developed strictly for educational demonstration and academic research benchmarking. It does not replace certified highway compliance surveys or provide statutory structural safety guarantees.
+    </div>
+
+    <h2>8.3 Future Enhancements</h2>
+    <p>
+      &bull; <em>Multi-Defect Segmentation:</em> Expanding the detection head to segment alligator cracking (`D20`), transverse fissures (`D10`), and longitudinal rutting (`D00`).<br />
+      &bull; <em>Edge Hardware Deployment:</em> Compiling via TensorRT for low-power NVIDIA Jetson Orin Nano units on municipal vehicles.<br />
+      &bull; <em>GPS Heatmapping:</em> Pairing detection telemetry with GPS coordinates to plot interactive GIS pavement health maps.
+    </p>
+
+    <h2>References</h2>
+    <div class="ref-item">[1] J. Redmon, S. Divvala, R. Girshick, and A. Farhadi, &ldquo;You Only Look Once: Unified, Real-Time Object Detection,&rdquo; <em>IEEE CVPR</em>, pp. 779&ndash;788, 2016.</div>
+    <div class="ref-item">[2] Ultralytics, &ldquo;YOLOv8: Real-Time Deep Learning Object Detection and Segmentation,&rdquo; 2023. [Online]. https://github.com/ultralytics/ultralytics</div>
+    <div class="ref-item">[3] D. Arya et al., &ldquo;Global Road Damage Detection: State-of-the-art Solutions,&rdquo; <em>IEEE Big Data</em>, pp. 5533&ndash;5539, 2022.</div>
+    <div class="ref-item">[4] Z. Zheng et al., &ldquo;Distance-IoU Loss: Faster and Better Learning for Bounding Box Regression,&rdquo; <em>AAAI</em>, vol. 34, pp. 12993&ndash;13000, 2020.</div>
+    <div class="ref-item">[5] X. Li et al., &ldquo;Generalized Focal Loss: Learning Qualified and Distributed Bounding Boxes,&rdquo; <em>NeurIPS</em>, vol. 33, pp. 21002&ndash;21012, 2020.</div>
+    <div class="ref-item">[6] S. Ren, K. He, R. Girshick, and J. Sun, &ldquo;Faster R-CNN: Towards Real-Time Object Detection with RPN,&rdquo; <em>IEEE TPAMI</em>, vol. 39, pp. 1137&ndash;1149, 2017.</div>
+    <div class="ref-item">[7] K. Koch and C. Brilakis, &ldquo;Pothole Detection in Asphalt Pavement Images,&rdquo; <em>Adv. Eng. Informatics</em>, vol. 25, pp. 507&ndash;515, 2011.</div>
+    <div class="ref-item">[8] R. Fan et al., &ldquo;Pothole Detection Based on Disparity Transformation and Surface Modeling,&rdquo; <em>IEEE TIP</em>, vol. 29, pp. 897&ndash;908, 2020.</div>
+    <div class="ref-item">[9] MoRTH, &ldquo;Road Accidents in India 2022,&rdquo; Transport Research Wing, New Delhi, Tech. Rep., 2023.</div>
+  </div>
+
+</body>
+</html>

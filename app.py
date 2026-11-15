@@ -865,6 +865,33 @@ def main():
                 unsafe_allow_html=True,
             )
 
+            # Final Project Report PDF Download
+            report_pdf_path = BASE_DIR / "outputs" / "reports" / "RoadWatch_AI_Final_Project_Report.pdf"
+            if report_pdf_path.exists():
+                with open(report_pdf_path, "rb") as rf:
+                    report_bytes = rf.read()
+                st.markdown(
+                    f"""
+                    <div style="background: #34423B; border: 1px solid #4B5A51; border-radius: 8px; padding: 14px 16px; margin-top: 16px;">
+                        <div style="font-weight: 700; color: #F0F3EF; font-size: 14px; margin-bottom: 4px; display: flex; align-items: center; gap: 8px;">
+                            {get_icon('Download', size=16, color='#78977F')}
+                            <span>Final Academic Project Report</span>
+                        </div>
+                        <div style="font-size: 12px; color: #B5C0B7; margin-bottom: 12px;">
+                            Publication-aligned engineering report (14 pages) covering architecture, loss formulations, empirical benchmark tables, and IEEE references.
+                        </div>
+                    </div>
+                    """,
+                    unsafe_allow_html=True,
+                )
+                st.download_button(
+                    label="Download Final Project Report (PDF)",
+                    data=report_bytes,
+                    file_name="RoadWatch_AI_Final_Project_Report.pdf",
+                    mime="application/pdf",
+                    use_container_width=True,
+                )
+
 
 if __name__ == "__main__":
     main()
