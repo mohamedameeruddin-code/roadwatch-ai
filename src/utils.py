@@ -295,7 +295,7 @@ def get_custom_css() -> str:
         gap: 8px;
     }
 
-    /* --- UPLOAD PANEL --- */
+    /* --- UPLOAD PANEL & STREAMLIT FILE UPLOADER --- */
     .upload-frame {
         border: 2px dashed #4B5A51;
         border-radius: 10px;
@@ -307,6 +307,49 @@ def get_custom_css() -> str:
 
     .upload-frame:hover {
         border-color: #A0B7A3;
+    }
+
+    [data-testid="stFileUploader"] {
+        background-color: #3D4C44 !important;
+        border: 2px dashed #4B5A51 !important;
+        border-radius: 10px !important;
+        padding: 14px 16px !important;
+        margin-bottom: 16px !important;
+        transition: all 0.2s ease !important;
+    }
+
+    [data-testid="stFileUploader"]:hover {
+        border-color: #78977F !important;
+        background-color: rgba(61, 76, 68, 0.9) !important;
+    }
+
+    section[data-testid="stFileUploaderDropzone"] {
+        background-color: transparent !important;
+        border: none !important;
+        padding: 6px !important;
+    }
+
+    section[data-testid="stFileUploaderDropzone"] button {
+        background-color: #78977F !important;
+        color: #F0F3EF !important;
+        border: none !important;
+        font-weight: 600 !important;
+        border-radius: 6px !important;
+        padding: 8px 18px !important;
+        cursor: pointer !important;
+        transition: background-color 0.15s ease !important;
+    }
+
+    section[data-testid="stFileUploaderDropzone"] button:hover {
+        background-color: #63826A !important;
+    }
+
+    section[data-testid="stFileUploaderDropzone"] span {
+        color: #B5C0B7 !important;
+    }
+
+    section[data-testid="stFileUploaderDropzone"] small {
+        color: #8F9B92 !important;
     }
 
     /* --- METRIC SUMMARY CARDS --- */

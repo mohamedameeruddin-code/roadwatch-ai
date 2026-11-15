@@ -61,10 +61,10 @@ def main():
     detector = load_detector()
     device_name = "CUDA GPU" if torch.cuda.is_available() else "CPU"
 
-    # Initialize active view state
-    nav_options = ["Dashboard", "Pothole Detection", "Model Performance", "About Project"]
+    # Initialize active view state (default to Pothole Detection for immediate upload workspace)
+    nav_options = ["Pothole Detection", "Dashboard", "Model Performance", "About Project"]
     if "nav_view" not in st.session_state:
-        st.session_state["nav_view"] = "Dashboard"
+        st.session_state["nav_view"] = "Pothole Detection"
 
     # -------------------------------------------------------------
     # 1. LEFT SIDEBAR NAVIGATION (#1C2924 Charcoal-Green)
@@ -297,13 +297,13 @@ def main():
         with col_input:
             st.markdown(
                 f"""
-                <div class="rw-card-elevated">
-                    <div class="rw-card-header">
+                <div class="rw-card-elevated" style="margin-bottom: 12px;">
+                    <div class="rw-card-header" style="margin-bottom: 8px;">
                         {get_icon('Upload', size=18, color='#78977F')}
                         <span>Road Image Ingestion</span>
                     </div>
-                    <div style="font-size: 13px; color: #B5C0B7; margin-bottom: 12px;">
-                        Supported formats: JPG, JPEG, PNG (maximum file size 25 MB).
+                    <div style="font-size: 13px; color: #B5C0B7;">
+                        Choose a roadway photograph from your computer or drag & drop. Supports JPG, JPEG, PNG, WEBP, BMP (up to 50 MB).
                     </div>
                 </div>
                 """,
@@ -311,11 +311,15 @@ def main():
             )
 
             uploaded_file = st.file_uploader(
-                label="Upload road photograph",
-                type=["jpg", "jpeg", "png"],
+                label="Choose a road photograph",
+                type=["jpg", "jpeg", "png", "webp", "bmp", "jfif"],
                 help="Select a road photograph for pothole analysis.",
                 label_visibility="collapsed",
+                key="main_image_uploader",
             )
+
+            if uploaded_file is not None and "active_sample" in st.session_state:
+                st.session_state.pop("active_sample", None)
 
             # Benchmark samples
             sample_paths = [

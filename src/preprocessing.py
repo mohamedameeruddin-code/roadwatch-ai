@@ -11,11 +11,11 @@ from PIL import Image
 
 def validate_image_file(
     file_input: Union[str, bytes, BytesIO],
-    max_size_mb: float = 15.0,
+    max_size_mb: float = 50.0,
 ) -> Tuple[bool, str, Optional[Image.Image]]:
     """
     Validates that the provided input is a valid, readable road image
-    conforming to supported formats (JPG, JPEG, PNG) and size constraints.
+    conforming to supported formats (JPG, JPEG, PNG, WEBP, BMP) and size constraints.
 
     Returns:
         (is_valid, message, PIL Image instance if valid)
@@ -41,22 +41,23 @@ def validate_image_file(
 
         # Format validation
         img_format = (img.format or "").upper()
-        if img_format not in ["JPEG", "JPG", "PNG"]:
-            return False, f"Unsupported format '{img_format}'. Only JPG, JPEG, and PNG images are supported.", None
+        allowed_formats = ["JPEG", "JPG", "PNG", "WEBP", "BMP", "MPO", "TIFF", "GIF"]
+        if img_format and img_format not in allowed_formats:
+            return False, f"Unsupported format '{img_format}'. Supported formats: JPG, JPEG, PNG, WEBP, BMP.", None
 
         # Dimensions validation
         width, height = img.size
         if width < 32 or height < 32:
             return False, f"Image resolution ({width}x{height}) is too small for pothole inspection (minimum 32x32).", None
 
-        # Convert to RGB (in case of RGBA, Grayscale, etc.)
+        # Convert to RGB (handles RGBA, Palette, Grayscale, MPO, etc.)
         if img.mode != "RGB":
             img = img.convert("RGB")
 
         return True, "Image validation successful.", img
 
     except Exception as e:
-        return False, f"Failed to decode image file. File may be corrupt. Details: {str(e)}", None
+        return False, f"Failed to decode image file. File may be corrupt or invalid. Details: {str(e)}", None
 
 
 def letterbox_image(

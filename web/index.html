@@ -214,19 +214,37 @@
 
     /* Upload Zone */
     .upload-zone {
+      position: relative;
+      overflow: hidden;
       border: 2px dashed var(--border);
       border-radius: var(--radius);
-      padding: 24px;
+      padding: 28px 16px;
       text-align: center;
       background: var(--bg);
       cursor: pointer;
       transition: all 0.2s;
-      position: relative;
     }
 
     .upload-zone:hover, .upload-zone.dragover {
       border-color: var(--primary);
-      background: rgba(120, 151, 127, 0.1);
+      background: rgba(120, 151, 127, 0.12);
+    }
+
+    .file-input-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      cursor: pointer;
+      z-index: 20;
+    }
+
+    .upload-content {
+      position: relative;
+      z-index: 1;
+      pointer-events: none;
     }
 
     .upload-icon {
@@ -262,17 +280,30 @@
       background: var(--surface);
       border: 1px solid var(--border);
       color: var(--text-main);
-      padding: 8px 16px;
+      padding: 10px 18px;
       border-radius: 6px;
       font-size: 13px;
       font-weight: 600;
       cursor: pointer;
+      position: relative;
+      overflow: hidden;
       transition: all 0.2s;
     }
 
     .btn-camera:hover {
       background: rgba(120, 151, 127, 0.2);
       border-color: var(--primary);
+    }
+
+    .camera-input-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      cursor: pointer;
+      z-index: 10;
     }
 
     /* Quick Samples */
@@ -619,21 +650,36 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#78977F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
             Road Image Ingestion
           </div>
-          <div class="upload-zone" id="drop-zone" onclick="document.getElementById('file-input').click()">
-            <div class="upload-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#A0B7A3" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+          <div class="upload-zone" id="drop-zone">
+            <input 
+              type="file" 
+              id="file-input" 
+              accept="image/*,.jpg,.jpeg,.png,.webp,.bmp" 
+              class="file-input-overlay" 
+              onchange="handleFileSelect(event)" 
+            />
+            <div class="upload-content">
+              <div class="upload-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#78977F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
+              </div>
+              <div class="upload-prompt">Tap to choose photo or drag &amp; drop</div>
+              <div class="upload-sub">Supports JPG, JPEG, PNG, WEBP, BMP (up to 50 MB)</div>
             </div>
-            <div class="upload-prompt">Select photo or drag &amp; drop</div>
-            <div class="upload-sub">Supports JPG, PNG, WEBP (Max 15MB)</div>
-            <input type="file" id="file-input" accept="image/*" class="hidden" onchange="handleFileSelect(event)" />
           </div>
 
           <div class="upload-actions">
-            <button class="btn-camera" onclick="document.getElementById('camera-input').click()">
+            <label class="btn-camera" for="camera-input">
+              <input 
+                type="file" 
+                id="camera-input" 
+                accept="image/*" 
+                capture="environment" 
+                class="camera-input-overlay" 
+                onchange="handleFileSelect(event)" 
+              />
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#78977F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
-              Take Photo (Mobile Camera)
-            </button>
-            <input type="file" id="camera-input" accept="image/*" capture="environment" class="hidden" onchange="handleFileSelect(event)" />
+              <span>Take Photo (Mobile Camera)</span>
+            </label>
           </div>
 
           <!-- Quick Samples -->
@@ -901,7 +947,12 @@
     }
 
     function handleFileSelect(evt) {
-      const file = evt.target.files[0];
+      let file = null;
+      if (evt.target && evt.target.files && evt.target.files[0]) {
+        file = evt.target.files[0];
+      } else if (evt.dataTransfer && evt.dataTransfer.files && evt.dataTransfer.files[0]) {
+        file = evt.dataTransfer.files[0];
+      }
       if (!file) return;
 
       const reader = new FileReader();
@@ -910,12 +961,19 @@
         img.onload = function() {
           currentImage = img;
           document.getElementById('orig-img').src = img.src;
-          document.getElementById('results-section').classList.remove('hidden');
+          const resSec = document.getElementById('results-section');
+          resSec.classList.remove('hidden');
+          resSec.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
           runAnalysis();
         };
         img.src = e.target.result;
       };
       reader.readAsDataURL(file);
+
+      // Reset file input value so re-selecting the exact same image triggers change event
+      if (evt.target && evt.target.value !== undefined) {
+        try { evt.target.value = ''; } catch(err) {}
+      }
     }
 
     // Generate high-resolution procedural road samples
@@ -1185,10 +1243,7 @@
     });
     dropZone.addEventListener('drop', (e) => {
       e.preventDefault();
-      const dt = e.dataTransfer;
-      if (dt.files && dt.files[0]) {
-        handleFileSelect({ target: { files: dt.files } });
-      }
+      handleFileSelect(e);
     });
 
     // Auto-load sample 1 on startup
