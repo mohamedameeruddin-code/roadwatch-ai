@@ -1,20 +1,21 @@
 [app]
 title = "RoadWatch AI"
 subtitle = "Intelligent Road Condition Analysis"
-version = "1.0.0"
-default_confidence = 0.35
+version = "2.0.0"
+theme = "medium-dark"
+default_confidence = 0.15
 max_upload_size_mb = 15
 
 [model]
 weights_path = "models/best.pt"
 input_size = 640
-default_epochs = 50
+default_epochs = 15
 default_batch_size = 16
 target_class = "pothole"
 rdd_target_code = "D40"
 
 [paths]
-raw_data_dir = "data/raw"
+raw_data_dir = "data/raw/RDD2022_India"
 processed_data_dir = "data/processed"
 dataset_yaml = "data/dataset.yaml"
 predictions_dir = "outputs/predictions"
@@ -22,14 +23,18 @@ metrics_file = "outputs/metrics/evaluation_metrics.json"
 plots_dir = "outputs/plots"
 
 [palette]
-primary = "#244B3C"
-accent = "#6A8F78"
-light_sage = "#E9F0EA"
-background = "#F6F8F5"
-surface = "#FFFFFF"
-primary_text = "#26332B"
-secondary_text = "#69766E"
-border = "#D9E2DA"
-success = "#3D7A57"
-warning = "#B77A27"
-error = "#B6534C"
+main_background = "#26332E"
+sidebar_background = "#1C2924"
+primary_card_background = "#34423B"
+elevated_card_background = "#3D4C44"
+primary_green = "#78977F"
+sage_accent = "#A0B7A3"
+light_green = "#C0D0C1"
+muted_gold = "#C2A36D"
+primary_text = "#F0F3EF"
+secondary_text = "#B5C0B7"
+muted_text = "#8F9B92"
+border = "#4B5A51"
+success = "#78A987"
+warning = "#D2A35D"
+error = "#C7756D"

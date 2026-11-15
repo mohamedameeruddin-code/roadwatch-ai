@@ -170,15 +170,16 @@ class PotholeDetector:
                         confidences_list.append(conf)
                         classes_list.append(cls_name)
 
-            # Draw annotations using our forest green palette
+            # Draw annotations using medium-dark palette (#78977F Primary Green)
             annotated_rgb = draw_bounding_boxes(
                 image=rgb_image,
                 boxes=boxes_list,
                 confidences=confidences_list,
                 class_names=classes_list,
-                box_color_bgr=(36, 75, 60),  # Primary forest green #244B3C
-                text_color_bgr=(255, 255, 255),
-                line_thickness=3,
+                box_color_bgr=(127, 151, 120),  # Primary green #78977F in BGR
+                badge_bg_bgr=(59, 66, 52),      # Primary card #34423B in BGR
+                text_color_bgr=(239, 243, 240), # Primary text #F0F3EF in BGR
+                line_thickness=2,
             )
 
             return DetectionResult(

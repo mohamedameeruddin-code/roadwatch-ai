@@ -140,8 +140,9 @@ def draw_bounding_boxes(
     boxes: List[List[int]],
     confidences: List[float],
     class_names: Optional[List[str]] = None,
-    box_color_bgr: Tuple[int, int, int] = (60, 75, 36),  # #244B3C in BGR
-    text_color_bgr: Tuple[int, int, int] = (255, 255, 255),
+    box_color_bgr: Tuple[int, int, int] = (127, 151, 120),  # #78977F Primary Green in BGR
+    badge_bg_bgr: Tuple[int, int, int] = (59, 66, 52),     # #34423B Primary Card in BGR
+    text_color_bgr: Tuple[int, int, int] = (239, 243, 240), # #F0F3EF Primary Text in BGR
     line_thickness: int = 2,
 ) -> np.ndarray:
     """
@@ -152,7 +153,8 @@ def draw_bounding_boxes(
         boxes: List of [xmin, ymin, xmax, ymax] in absolute pixel coordinates
         confidences: List of float confidence values (0.0 to 1.0)
         class_names: List of class labels (defaults to 'pothole')
-        box_color_bgr: BGR color for borders and label badges
+        box_color_bgr: BGR color for bounding box outlines
+        badge_bg_bgr: BGR color for label background pill
         text_color_bgr: BGR text color
         line_thickness: Box outline thickness
 
@@ -196,8 +198,17 @@ def draw_bounding_boxes(
             annotated,
             (xmin, badge_y1),
             (badge_x2, badge_y2),
-            box_color_bgr,
+            badge_bg_bgr,
             cv2.FILLED,
+        )
+        # Badge border
+        cv2.rectangle(
+            annotated,
+            (xmin, badge_y1),
+            (badge_x2, badge_y2),
+            box_color_bgr,
+            1,
+            lineType=cv2.LINE_AA,
         )
 
         # Draw label text
