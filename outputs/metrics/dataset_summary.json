@@ -1,0 +1,40 @@
+{
+  "dataset_name": "RDD2022_India",
+  "target_class": "D40",
+  "target_class_name": "pothole",
+  "split_ratios": [
+    0.7,
+    0.15,
+    0.15
+  ],
+  "random_seed": 42,
+  "total_images": 7706,
+  "splits": {
+    "train": {
+      "total_images": 5394,
+      "pothole_images": 1079,
+      "pothole_instances": 2228,
+      "negative_images": 4315
+    },
+    "val": {
+      "total_images": 1155,
+      "pothole_images": 221,
+      "pothole_instances": 454,
+      "negative_images": 934
+    },
+    "test": {
+      "total_images": 1157,
+      "pothole_images": 230,
+      "pothole_instances": 505,
+      "negative_images": 927
+    }
+  },
+  "total_pothole_instances": 3187,
+  "total_pothole_images": 1530,
+  "total_negative_images": 6176,
+  "validation": {
+    "train_labels_match_images": true,
+    "val_labels_match_images": true,
+    "test_labels_match_images": true
+  }
+}

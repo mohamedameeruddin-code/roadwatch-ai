@@ -1,0 +1,7 @@
+Metric,Value
+Precision,0.1799
+Recall,0.1728
+F1-Score,0.1763
+mAP@0.5,0.0935
+mAP@0.5:0.95,0.0282
+Inference Latency (ms),12.82

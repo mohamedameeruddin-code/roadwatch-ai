@@ -1,0 +1,6 @@
+names:
+  0: pothole
+path: C:/Users/Asus/.gemini/antigravity/scratch/roadwatch-ai/data/processed
+test: images/test
+train: images/train
+val: images/val
