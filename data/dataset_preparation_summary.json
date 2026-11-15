@@ -1,0 +1,40 @@
+{
+    "dataset_name": "RDD2022_India",
+    "raw_source_directory": "C:\\Users\\Asus\\.gemini\\antigravity\\scratch\\roadwatch-ai\\data\\raw\\RDD2022_India",
+    "processed_directory": "C:\\Users\\Asus\\.gemini\\antigravity\\scratch\\roadwatch-ai\\data\\processed",
+    "total_source_xmls": 7706,
+    "total_source_images": 7706,
+    "target_class_code": "D40",
+    "target_class_name": "pothole",
+    "total_d40_boxes": 3187,
+    "total_pothole_images": 1530,
+    "total_negative_images": 6176,
+    "split_ratios": {
+        "train": 0.7,
+        "val": 0.15,
+        "test": 0.15
+    },
+    "random_seed": 42,
+    "data_leakage_check": "PASSED (0 overlapping image stems)",
+    "splits": {
+        "train": {
+            "total_images": 5394,
+            "pothole_images": 1071,
+            "pothole_boxes": 2242,
+            "negative_images": 4323
+        },
+        "val": {
+            "total_images": 1155,
+            "pothole_images": 229,
+            "pothole_boxes": 468,
+            "negative_images": 926
+        },
+        "test": {
+            "total_images": 1157,
+            "pothole_images": 230,
+            "pothole_boxes": 477,
+            "negative_images": 927
+        }
+    },
+    "elapsed_seconds": 26.27
+}
